@@ -57,10 +57,10 @@ router.setState = function() {
   {
     let entryPage = body.getElementsByTagName("entry-page")[0];
     body.className = "single-entry";
-    h1.innerHTML = "Entry " + state.number; // entry number
+    h1.innerHTML = "Entry " + history.state.number; // entry number
     entryPage.remove(); // delete entry page
     entryPage = window.document.createElement("entry-page"); // create new entry page
     body.appendChild(entryPage); // insert new entry page
-    entryPage.entry = state.entry;
+    entryPage.entry = history.state.entry;
   }
 }

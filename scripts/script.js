@@ -36,3 +36,11 @@ img.addEventListener("click", () => {
     setState({state:"settings"});
   }
 });
+
+window.onpopstate = function(event) {
+  //console.log(event)
+  let strArrHash = event.srcElement.window.location.href.split("#");
+  let currentPage = strArrHash[1];
+  console.log(strArrHash)
+  setState({state:currentPage})
+}

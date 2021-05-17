@@ -7,6 +7,17 @@ const h1 = header.querySelector("h1");
 const img = header.querySelector("img");
 
 // Make sure you register your service worker here too
+if ('serviceWorker' in navigator) {
+  window.addEventListener('load', function() {
+    navigator.serviceWorker.register('sw.js', { scope: '/Lab7/' }).then(function(registration) {
+      // Registration was successful
+      console.log('ServiceWorker registration successful with scope: ', registration.scope);
+    }, function(err) {
+      // registration failed :(
+      console.log('ServiceWorker registration failed: ', err);
+    });
+  });
+}
 
 document.addEventListener('DOMContentLoaded', () => {
   fetch('https://cse110lab6.herokuapp.com/entries')
@@ -27,6 +38,11 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 });
 
+h1.addEventListener("click", () => {
+    window.history.pushState({state:"journal-entry"}, "", "/Lab7/");
+    setState({state:"journal-entry"});
+});
+
 img.addEventListener("click", () => {
   let strArrHash = window.location.href.split("#");
 
@@ -38,9 +54,7 @@ img.addEventListener("click", () => {
 });
 
 window.onpopstate = function(event) {
-  //console.log(event)
   let strArrHash = event.srcElement.window.location.href.split("#");
   let currentPage = strArrHash[1];
-  console.log(strArrHash)
   setState({state:currentPage})
 }
